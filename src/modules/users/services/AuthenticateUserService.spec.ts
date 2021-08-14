@@ -5,17 +5,21 @@ import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import CreateUserService from './CreateUserService';
 import FakeHashProvider from '../providers/hashProvider/fakes/FakeHashProvider';
 
-describe('AuthenticateUser', () => {
-  it('should be able to authenticate an user', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
+let fakeUsersRepository: FakeUsersRepository;
+let fakeHashProvider: FakeHashProvider;
+let authenticateUserService: AuthenticateUserService;
 
-    const createUser = new CreateUserService(
+describe('AuthenticateUser', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    fakeHashProvider = new FakeHashProvider();
+    authenticateUserService = new AuthenticateUserService(
       fakeUsersRepository,
       fakeHashProvider,
     );
-
-    const authenticateUserService = new AuthenticateUserService(
+  });
+  it('should be able to authenticate an user', async () => {
+    const createUser = new CreateUserService(
       fakeUsersRepository,
       fakeHashProvider,
     );
@@ -36,13 +40,6 @@ describe('AuthenticateUser', () => {
   });
 
   it('should be able to reject an user with wrong email', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const authenticateUserService = new AuthenticateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
-
     await expect(
       authenticateUserService.execute({
         email: 'doe.j@mail.com',
@@ -52,13 +49,6 @@ describe('AuthenticateUser', () => {
   });
 
   it('should not be able to Authenticate an user with wrong password', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const authenticateUserService = new AuthenticateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
-
     const createUser = new CreateUserService(
       fakeUsersRepository,
       fakeHashProvider,
