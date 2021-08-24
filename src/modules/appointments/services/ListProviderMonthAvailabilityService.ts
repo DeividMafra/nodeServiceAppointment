@@ -27,14 +27,17 @@ class ListProviderMonthAvailabilityService {
     year,
     month,
   }: IRequest): Promise<IResponse> {
+    console.log(provider_id, year, month);
+
     const appointments = await this.appointmentsRepository.findAllInMonthFromProvider(
       {
         provider_id,
-        year,
         month,
+        year,
       },
     );
 
+    console.log('appointments>>> ', appointments);
     const numberOfDaysInMonth = getDaysInMonth(new Date(year, month - 1));
 
     const eachDayArray = Array.from(
