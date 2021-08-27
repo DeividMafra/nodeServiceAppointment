@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-
 import { container } from 'tsyringe';
 
 import ListProviderDayAvailabilityService from '@modules/appointments/services/ListProviderDayAvailabilityService';
@@ -13,13 +12,13 @@ export default class ProviderDayAvailabilityController {
       ListProviderDayAvailabilityService,
     );
 
-    const dayAvailability = await listProviderDayAvailability.execute({
+    const availability = await listProviderDayAvailability.execute({
       provider_id,
       day,
       month,
       year,
     });
 
-    return response.json(dayAvailability);
+    return response.json(availability);
   }
 }
