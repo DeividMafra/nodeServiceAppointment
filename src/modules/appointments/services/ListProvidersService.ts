@@ -28,14 +28,9 @@ class ListProvidersService {
         except_user_id: user_id,
       });
 
-      console.log('done!');
-
       await this.cacheProvider.save(`provider-list:${user_id}`, users);
     }
 
-    // users.forEach(user => {
-    //   user.password = '';
-    // });
     return users;
   }
 }

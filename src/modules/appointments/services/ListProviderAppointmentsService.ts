@@ -44,7 +44,6 @@ class ListProviderAppointmentsService {
         },
       );
 
-      console.log('we are here!');
       await this.cacheProvider.save(cacheKey, appointments);
     }
 

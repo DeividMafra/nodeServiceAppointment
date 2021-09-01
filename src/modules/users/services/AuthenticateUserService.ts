@@ -1,20 +1,19 @@
 import { sign } from 'jsonwebtoken';
-
+import authConfig from '@config/auth';
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import authConfig from '@config/auth';
 
 import User from '../infra/typeorm/entities/User';
 import IUserRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/hashProvider/models/IHashProvider';
 
-interface IResquestDTO {
+interface IResquest {
   email: string;
   password: string;
 }
 
-interface IResponseDTO {
+interface IResponse {
   user: User;
   token: string;
 }
@@ -29,10 +28,7 @@ class AuthenticateUserService {
     private hashProvider: IHashProvider,
   ) {}
 
-  public async execute({
-    email,
-    password,
-  }: IResquestDTO): Promise<IResponseDTO> {
+  public async execute({ email, password }: IResquest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
