@@ -5,7 +5,7 @@ import multer, { StorageEngine } from 'multer';
 const tempFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
 interface IUploadConfig {
-  driver: 'disk' | 's3';
+  driver: 'disk' | 'aws';
 
   tempFolder: string;
   uploadsFolder: string;
@@ -16,7 +16,7 @@ interface IUploadConfig {
 
   config: {
     disk: {};
-    s3: {
+    aws: {
       bucket: string;
     };
   };
@@ -31,7 +31,7 @@ export default {
     storage: multer.diskStorage({
       destination: tempFolder,
       filename(request, file, callback) {
-        const fileHash = crypto.randomBytes(10).toString('HEX');
+        const fileHash = crypto.randomBytes(10).toString('hex');
         const filename = `${fileHash}-${file.originalname}`;
 
         return callback(null, filename);
@@ -41,7 +41,7 @@ export default {
 
   config: {
     disk: {},
-    s3: {
+    aws: {
       bucket: 'app-gobarber-2', // aws bucket name
     },
   },
