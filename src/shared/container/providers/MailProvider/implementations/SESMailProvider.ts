@@ -29,7 +29,7 @@ export default class SESMailProvider implements IMailProvider {
     subject,
     templateData,
   }: ISendMailDTO): Promise<void> {
-    console.log('It works');
+    console.log('I have to configure the Amazon SES settings');
 
     const { name, email } = mailConfig.defaults.from;
 
