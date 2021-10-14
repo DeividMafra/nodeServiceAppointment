@@ -1,6 +1,5 @@
+import { injectable, inject } from 'tsyringe';
 import { getHours, isAfter } from 'date-fns';
-import 'reflect-metadata';
-import { inject, injectable } from 'tsyringe';
 
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
@@ -42,12 +41,12 @@ class ListProviderDayAvailabilityService {
 
     const eachHourArray = Array.from(
       { length: 10 },
-      (value, index) => index + hourStart,
+      (_, index) => index + hourStart,
     );
 
     const currentDate = new Date(Date.now());
 
-    const availabitlity = eachHourArray.map(hour => {
+    const availability = eachHourArray.map(hour => {
       const hasAppointmentInHour = appointments.find(
         appointment => getHours(appointment.date) === hour,
       );
@@ -60,7 +59,7 @@ class ListProviderDayAvailabilityService {
       };
     });
 
-    return availabitlity;
+    return availability;
   }
 }
 
