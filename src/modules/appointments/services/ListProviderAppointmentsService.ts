@@ -35,6 +35,9 @@ class ListProviderAppointmentsService {
       cacheKey,
     );
 
+    // let appointments = null;
+
+    month -= 1;
     if (!appointments) {
       appointments = await this.appointmentsRepository.findAllInDayFromProvider(
         {
@@ -48,6 +51,7 @@ class ListProviderAppointmentsService {
       await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
 
+    console.log('app>>> ', appointments);
     return appointments;
   }
 }
